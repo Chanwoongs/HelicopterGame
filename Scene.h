@@ -15,8 +15,8 @@ class Scene : public GameObject
     Input*  input;
 
     GameObject* helicopter;
-    vector<unique_ptr<GameObject>> bullets;
-
+    vector<GameObject*> bullets;
+    /*vector<unique_ptr<GameObject>> bullets;*/
 public:
 
     Scene()
