@@ -61,4 +61,3 @@ public:
         this->isFired = isFired;
     }
 };
-
