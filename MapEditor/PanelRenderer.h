@@ -23,4 +23,3 @@ public:
         screen->draw({ worldPos.x + 1, worldPos.y-1 }, title.c_str());
     }
 };
-

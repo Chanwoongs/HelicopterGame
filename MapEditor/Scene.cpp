@@ -7,6 +7,11 @@ void Scene::update() {
         return;
     }
 
+    customizeMap();
+    onClickButton(sandButton);
+    onClickButton(grassButton);
+    onClickButton(groundButton);
+
     internalRemove();
     internalRender(Position::zeros, false);
     internalUpdate();
