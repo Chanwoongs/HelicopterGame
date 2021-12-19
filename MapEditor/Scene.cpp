@@ -8,9 +8,13 @@ void Scene::update() {
     }
 
     customizeMap();
+
     onClickButton(sandButton);
     onClickButton(grassButton);
     onClickButton(groundButton);
+    onClickButton(clearButton);
+    onClickButton(saveButton);
+    onClickButton(loadButton);
 
     internalRemove();
     internalRender(Position::zeros, false);

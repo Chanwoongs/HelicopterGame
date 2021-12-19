@@ -20,12 +20,15 @@ public:
     MapEditorScript(GameObject* gameObject) : Behaviour(gameObject),
         map(""), mapSize(0), terrainNum(0), sand(' '), grass(' '), ground(' ')
     {
+        // ∏  ≈©±‚
         mapSize = renderer->getCapacity();
         
+        // terrain √ ±‚»≠
         sand = '\xB0';
         grass = '\xB1';
         ground = '\xB2';
 
+        // ∏  √ ±‚»≠
         for (int i = 0; i < mapSize; i++)
         {
             map.append("0");
@@ -37,6 +40,7 @@ public:
         setMap();
     }
 
+    // ∏ ¿« terrainNumø° µ˚∂Û terrain √‚∑¬
     void setMap()
     {
         for (int i = 0; i < mapSize; i++)
@@ -60,11 +64,13 @@ public:
         }
     }
 
+    // terrainNum ºº∆√
     void setTerrain(int terrainNum)
     {
         this->terrainNum = terrainNum;
     }
 
+    // terrainNumø° µ˚∂Û terrain ∫Ø∞Ê
     void editMap(const Position& pos)
     {
         int offset = renderer->pos2Offset(pos - transform->getPos());
@@ -87,6 +93,7 @@ public:
         }
     }
 
+    // ∫Ûƒ≠¿∏∑Œ ºº∆√
     void setBlank(const Position& pos)
     {
         int offset = renderer->pos2Offset(pos - transform->getPos());
@@ -94,31 +101,38 @@ public:
         map[offset] = '0';
     }
 
-    void save() {
-        ofstream mapFile;
-
-        mapFile.open("map.txt", ofstream::trunc);
-
-        for (int i = 0; i < mapSize; i++)
-        {
-            mapFile << map;
-        }
-        mapFile.close();
-    }
-
-    string getMap()
-    {
-        return map;
-    } 
-    
-    string getEmptyMap()
+    // ∏  √ ±‚»≠
+    void clear()
     {
         for (int i = 0; i < mapSize; i++)
         {
             map[i] = '0';
-        } 
+        }
+    }
 
-        return map;
+    // ∏  ¿˙¿Â
+    void save() {
+        ofstream mapFile;
+
+        mapFile.open("map.txt", ofstream::trunc);
+        mapFile << map;
+        mapFile.close();
+        
+        exit(0);
+    }
+
+    // ∏  ∫“∑Øø¿±‚
+    void load() {
+        ifstream mapFile;
+        mapFile.open("map.txt");
+        clear();
+        if (mapFile.is_open() == false) {
+            return;
+        }
+        if (!mapFile.eof()) {
+            mapFile >> map;
+        }
+        mapFile.close();
     }
 };
 
