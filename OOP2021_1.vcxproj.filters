@@ -60,6 +60,12 @@
     <ClCompile Include="BulletScript.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="MapScript.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="VerticalLineScript.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Screen.h">
@@ -99,6 +105,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="BulletScript.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapScript.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalLineScript.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

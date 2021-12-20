@@ -19,6 +19,8 @@ void Scene::update() {
         bullets.push_back(bullet);
         helicopter->getComponent<HelicopterScript>()->setIsFired(false);*/
     }
+    
+    updateMap();
 
     internalRemove();
     internalRender(Position::zeros, false);

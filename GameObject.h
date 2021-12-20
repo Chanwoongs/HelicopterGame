@@ -98,6 +98,9 @@ public:
 	bool isAlive() const { return alive; }
 	void setAlive(bool flag = true) { this->alive = flag; }
 
+	bool isHidden() const { return hidden; }
+	void setHidden(bool flag = true) { this->hidden = flag; }
+
 	
 	Transform* getTransform() const { return transform; }
 	Renderer* getRenderer() const { return renderer; }

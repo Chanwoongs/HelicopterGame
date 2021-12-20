@@ -52,7 +52,7 @@ public:
         fire();
     }
 
-    bool getIsFired()
+    bool getIsFired() const
     {
         return isFired;
     }

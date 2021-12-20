@@ -19,6 +19,7 @@ GameObject::GameObject(GameObject* parent, string name, string tag,
 
 void GameObject::internalRender(const Position& parentWorldPos, bool dirty) {
 	if (alive == false || active == false) return;
+	if (hidden == true) return;
 	dirty = dirty || transform->getDirty();
 	transform->setDirty(dirty);
 	for (auto component : components) {
