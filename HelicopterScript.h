@@ -18,11 +18,14 @@ private:
 
     bool isFired;
 
+    // 날개 돌아가는 애니메이션
     void rotateWing()
     {
         renderer->setShape(images.at(imageIndex));
+        // 계속 순환할 수 있도록 index 값 변경
         imageIndex = (imageIndex + 1) % images.size();
     }
+    // 총알 발사 트리거
     void fire()
     {
         if (input->getKeyDown(VK_SPACE))

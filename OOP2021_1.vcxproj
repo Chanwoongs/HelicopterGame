@@ -160,7 +160,6 @@
     <ClCompile Include="HelicopterScript.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapScript.cpp" />
     <ClCompile Include="MoveScript.cpp" />
     <ClCompile Include="PanelRenderer.cpp" />
     <ClCompile Include="Position.cpp" />
@@ -178,7 +177,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HelicopterScript.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="MapScript.h" />
     <ClInclude Include="MoveScript.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Renderer.h" />

@@ -19,6 +19,75 @@ private:
     char sand;
     char rock;
 
+    // 횡 이동
+    void move()
+    {
+        auto pos = transform->getPos();
+        transform->setPos(pos + Position::left);
+    }
+
+    // 한 줄의 terrain 설정
+    void setShape()
+    {
+        for (int i = 0; i < lineSize; i++)
+        {
+            shape[i] = ' ';
+        }
+
+        for (int i = 0; i <= ceil((pivot - space) / 3); i++)
+        {
+            shape[i] = rock;
+        }
+        for (int i = ceil((pivot - space) / 3) + 1; i <= ceil(((pivot - space) / 3) * 2); i++)
+        {
+            shape[i] = sand;
+        }
+        for (int i = ceil(((pivot - space) / 3) * 2) + 1; i < pivot - space; i++)
+        {
+            shape[i] = grass;
+        }
+
+        for (int i = pivot + space + 1; i < pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)); i++)
+        {
+            shape[i] = grass;
+        }
+        for (int i = pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)); i < pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)) * 2; i++)
+        {
+            shape[i] = sand;
+        }
+        for (int i = pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)) * 2; i < lineSize; i++)
+        {
+            shape[i] = rock;
+        }
+
+        renderer->setShape(shape);
+    }
+
+    // pivot 값 제한
+    void limitPivot()
+    {
+        if (pivot - space < 1)
+        {
+            pivot++;
+        }
+        else if (pivot + space > lineSize - 2)
+        {
+            pivot--;
+        }
+    }
+    // space 값 제한
+    void limitSpace()
+    {
+        if (space < 4)
+        {
+            space++;
+        }
+        else if (space > 7)
+        {
+            space--;
+        }
+    }
+
 public:
     VerticalLineScript(GameObject* gameObject) : Behaviour(gameObject),
         pivot(0), space(4), nextDifference(0), lineSize(0), shape(nullptr), grass(' '), sand(' '), rock(' ')
@@ -39,12 +108,6 @@ public:
         limitSpace();
     }
 
-    void move()
-    {
-        auto pos = transform->getPos();
-        transform->setPos(pos + Position::left);
-    }
-
     void setPivot(int pivot)
     {
         this->pivot = pivot;
@@ -63,68 +126,9 @@ public:
         return space;
     }
 
-    void setShape()
-    {
-        for (int i = 0; i < lineSize; i++)
-        {
-            shape[i] = ' ';
-        }
-
-        for (int i = 0; i < ceil((pivot - space) / 3); i++)
-        {
-            shape[i] = rock;
-        }
-        for (int i = ceil((pivot - space) / 3); i < ceil(((pivot - space) / 3) * 2); i++)
-        {
-            shape[i] = sand;
-        }
-        for (int i = ceil(((pivot - space) / 3) * 2); i < pivot - space; i++)
-        {
-            shape[i] = grass;
-        }
-
-        for (int i = pivot + space + 1; i < pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)); i++)
-        {
-            shape[i] = grass;
-        }
-        for (int i = pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)); i < pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)) * 2; i++)
-        {
-            shape[i] = sand;
-        }
-        for (int i = pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)) * 2; i < lineSize; i++)
-        {
-            shape[i] = rock;
-        }
-        
-        renderer->setShape(shape);
-    }
-
+    // pivot 값 새로고침
     void refresh(int pivot)
     {
         this->pivot = pivot;
     }
-
-    void limitPivot()
-    {
-        if (pivot - space < 1)
-        {
-            pivot++;
-        }
-        else if (pivot + space > lineSize-2)
-        {
-            pivot--;
-        }
-    }
-    void limitSpace()
-    {
-        if (space < 4)
-        {
-            space++;
-        }
-        else if (space > 7)
-        {
-            space--;
-        }
-    }
-    
 };

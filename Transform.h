@@ -31,4 +31,3 @@ public:
 	void setDirty(bool dirty) { this->dirty = dirty; }
 	bool getDirty() const { return dirty; }
 };
-
