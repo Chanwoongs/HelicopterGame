@@ -1,14 +1,15 @@
 ﻿  Scene.cpp
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(41,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(45,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(54,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(58,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(44,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(48,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(57,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(61,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\Scene.h(91,1): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   main.cpp
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(41,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(45,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(54,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(58,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(44,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(48,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(57,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\VerticalLineScript.h(61,20): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\Scene.h(91,1): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다...
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\Scene.h(158): warning C4715: 'Scene::checkCollision': 모든 제어 경로에서 값을 반환하지는 않습니다.
   OOP2021_1.vcxproj -> C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\x64\Debug\HelicopterGame.exe

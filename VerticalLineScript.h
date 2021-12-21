@@ -19,6 +19,9 @@ private:
     char sand;
     char rock;
 
+    Position topPos;
+    Position bottomPos;
+
     // 횡 이동
     void move()
     {
@@ -90,7 +93,7 @@ private:
 
 public:
     VerticalLineScript(GameObject* gameObject) : Behaviour(gameObject),
-        pivot(0), space(4), nextDifference(0), lineSize(0), shape(nullptr), grass(' '), sand(' '), rock(' ')
+        pivot(0), space(4), nextDifference(0), lineSize(0), shape(nullptr), grass(' '), sand(' '), rock(' '), topPos(0,0), bottomPos(0,0)
     {
         lineSize = renderer->getCapacity();
         shape = new char[lineSize];
@@ -106,6 +109,8 @@ public:
         move();
         limitPivot();
         limitSpace();
+        updateTopPos();
+        updateBottomPos();
     }
 
     void setPivot(int pivot)
@@ -124,6 +129,25 @@ public:
     int getSpace() const
     {
         return space;
+    }
+
+    // 위에 있는 지형의 가장 아래 인덱스
+    void updateTopPos()
+    {
+        topPos = Position(transform->getPos().x, pivot - space - 1);
+    }
+    Position getTopPos()
+    {
+        return topPos;
+    }
+    // 아래 있는 지형의 가장 위 인덱스
+    void updateBottomPos()
+    {
+        bottomPos = Position(transform->getPos().x, pivot + space + 1);
+    }
+    Position getBottomPos()
+    {
+        return bottomPos;
     }
 
     // pivot 값 새로고침

@@ -10,7 +10,7 @@ private:
     void move()
     {
         auto pos = transform->getPos();
-        transform->setPos((pos + Position::right) + 2);
+        transform->setPos(pos + Position::right);
     }
     void limitPos() 
     {
@@ -27,7 +27,11 @@ public:
     {
         move();
         limitPos();
-        //destroy(gameObject);
+    }
+
+    void destroyBullet()
+    {
+        destroy(gameObject);
     }
 };
 

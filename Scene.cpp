@@ -22,6 +22,10 @@ void Scene::update() {
     
     updateMap();
 
+    checkCollision();
+
+    updateBullets();
+
     internalRemove();
     internalRender(Position::zeros, false);
     internalUpdate();

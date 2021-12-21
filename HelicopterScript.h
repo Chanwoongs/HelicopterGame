@@ -16,6 +16,8 @@ private:
     vector<const char*> images;
     int imageIndex;
 
+    vector<Position> filledPoses;
+
     bool isFired;
 
     // 날개 돌아가는 애니메이션
@@ -62,5 +64,27 @@ public:
     void setIsFired(bool isFired)
     {
         this->isFired = isFired;
+    }
+
+    // 헬리콥터 내에 채워져있는 인덱스들 저장
+    vector<Position> searchFilledPoses()
+    {
+        Position temp;
+
+        for (int i = 0; i < renderer->getCapacity(); i++)
+        {
+            if (renderer->getShape()[i] != ' ')
+            {
+                temp = (Position(i % renderer->getWidth(), i / renderer->getWidth()) + transform->getPos());
+                filledPoses.push_back(temp);
+            }
+        }
+
+        return filledPoses;
+    }
+    // 다음 프레임의 채워져있는 인덱스들을 저장하기 위해 클리어
+    void clearFilledPoses()
+    {
+        filledPoses.clear();
     }
 };

@@ -118,11 +118,60 @@ public:
         }
      }
 
-    bool checkCollision(GameObject* gameObject)
+    // 충돌 체크
+    bool checkCollision()
     {
-        auto pos = gameObject->getTransform()->getPos();
-        auto worldPos = gameObject->getTransform()->local2World(pos);
- 
+        // 헬리콥터에 채워져 있는 인덱스들
+        auto helicopterFilledPoses = helicopter->getComponent<HelicopterScript>()->searchFilledPoses();
+        // 헬리콥터와 맵 충돌체크
+        for (int i = 0; i < helicopterFilledPoses.size(); i++)
+        {
+            for (int j = 0; j < map.size(); j++)
+            {
+                // 헬리콥터에 채워진 칸과 지형의 위치가 같아진다면
+                if (helicopterFilledPoses[i] == map[j]->getComponent<VerticalLineScript>()->getTopPos() ||
+                    helicopterFilledPoses[i] == map[j]->getComponent<VerticalLineScript>()->getBottomPos())
+                {
+                    exit(0);
+                }
+            }
+        }
+        // 인덱스들 초기화
+        helicopter->getComponent<HelicopterScript>()->clearFilledPoses();
+
+        // 총알과 맵 충돌체크
+        for (int i = 0; i < bullets.size(); i++)
+        {
+            for (int j = 0; j < map.size(); j++)
+            {
+                // 총알과 맵은 서로 반대로 움직이기 때문에 이중으로 충돌 처리
+                if (bullets[i]->getTransform()->getPos() == map[j]->getComponent<VerticalLineScript>()->getTopPos() ||
+                    bullets[i]->getTransform()->getPos() == map[j]->getComponent<VerticalLineScript>()->getBottomPos() || 
+                    bullets[i]->getTransform()->getPos() - 1 == map[j]->getComponent<VerticalLineScript>()->getTopPos() ||
+                    bullets[i]->getTransform()->getPos() - 1 == map[j]->getComponent<VerticalLineScript>()->getBottomPos())
+                {
+                    // 총알 삭제
+                    bullets[i]->getComponent<BulletScript>()->destroyBullet();
+                }
+            }
+        }
+    }
+
+    // Bullets Vector Container 관리
+    void updateBullets()
+    {
+        vector<GameObject*>::iterator it;
+
+        for (int i = 0; i < bullets.size(); i++)
+        {
+            // bullet이 죽었다면
+            if (!bullets[i]->isAlive())
+            {
+                // 해당 bullet을 bullets에서 지워주기
+                it = bullets.begin() + i;
+                bullets.erase(it);
+            }
+        }
     }
 
 #if 0
