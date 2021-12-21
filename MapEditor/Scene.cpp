@@ -9,9 +9,9 @@ void Scene::update() {
 
     customizeMap();
 
-    onClickButton(sandButton);
     onClickButton(grassButton);
-    onClickButton(groundButton);
+    onClickButton(sandButton);
+    onClickButton(rockButton);
     onClickButton(clearButton);
     onClickButton(saveButton);
     onClickButton(loadButton);

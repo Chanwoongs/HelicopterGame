@@ -15,20 +15,20 @@ private:
     int nextDifference;
     int lineSize;
     char* shape;
-    char sand;
     char grass;
-    char ground;
+    char sand;
+    char rock;
 
 public:
     VerticalLineScript(GameObject* gameObject) : Behaviour(gameObject),
-        pivot(0), space(4), nextDifference(0), lineSize(0), shape(nullptr), sand(' '), grass(' '), ground(' ')
+        pivot(0), space(4), nextDifference(0), lineSize(0), shape(nullptr), grass(' '), sand(' '), rock(' ')
     {
         lineSize = renderer->getCapacity();
         shape = new char[lineSize];
         
-        sand = '\xB0';
-        grass = '\xB1';
-        ground = '\xB2';
+        grass = '\xB0';
+        sand = '\xB1';
+        rock = '\xB2';
     }
 
     void update() override
@@ -72,28 +72,28 @@ public:
 
         for (int i = 0; i < ceil((pivot - space) / 3); i++)
         {
-            shape[i] = ground;
+            shape[i] = rock;
         }
         for (int i = ceil((pivot - space) / 3); i < ceil(((pivot - space) / 3) * 2); i++)
         {
-            shape[i] = grass;
+            shape[i] = sand;
         }
         for (int i = ceil(((pivot - space) / 3) * 2); i < pivot - space; i++)
         {
-            shape[i] = sand;
+            shape[i] = grass;
         }
 
         for (int i = pivot + space + 1; i < pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)); i++)
         {
-            shape[i] = sand;
+            shape[i] = grass;
         }
         for (int i = pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)); i < pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)) * 2; i++)
         {
-            shape[i] = grass;
+            shape[i] = sand;
         }
         for (int i = pivot + space + 1 + ceil(((lineSize - (pivot + space)) / 3)) * 2; i < lineSize; i++)
         {
-            shape[i] = ground;
+            shape[i] = rock;
         }
         
         renderer->setShape(shape);

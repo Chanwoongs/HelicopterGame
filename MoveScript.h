@@ -20,7 +20,7 @@ public:
             transform->setPos(pos + Position::right);
         }
         if (input->getKeyDown('A')) {
-            transform->setPos(pos + Position::left);
+            transform->setPos((pos + Position::left) - 1);
         }
         if (input->getKeyDown('S')) {
             transform->setPos(pos + Position::down);

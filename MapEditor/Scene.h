@@ -15,9 +15,9 @@ class Scene : public GameObject
     Input*  input;
 
     GameObject* map;
-    GameObject* sandButton;
     GameObject* grassButton;
-    GameObject* groundButton;
+    GameObject* sandButton;
+    GameObject* rockButton;
     GameObject* clearButton;
     GameObject* saveButton;
     GameObject* loadButton;
@@ -25,9 +25,10 @@ class Scene : public GameObject
     MapEditorScript* mapEditor;
 public:
 
-    Scene() 
+    Scene()
         : GameObject{ nullptr, "root", "root", nullptr, {1, 1}, {0, 0}, Position::zeros }, isCompleted(false),
-        input( Input::GetInstance() )
+        input(Input::GetInstance()), map(nullptr), grassButton(nullptr), sandButton(nullptr), rockButton(nullptr),
+        clearButton(nullptr), saveButton(nullptr), loadButton(nullptr), mapEditor(nullptr)
     {
         // 편집할 맵 추가
         map = new GameObject(this, "map", "panel", nullptr, { 70, 20 }, { 1,1 }, Position::zeros);
@@ -35,23 +36,23 @@ public:
         map->addComponent<MapEditorScript>();
         mapEditor = map->getComponent<MapEditorScript>();
 
-        // sand Terrain 변경 버튼
-        sandButton = new GameObject(this, "sandButton", "button", nullptr, { 8, 3 }, { 1, 23 }, Position::zeros);
-        sandButton->getOrAddComponent<PanelRenderer>()->setTitle("Sand");
-        sandButton->getOrAddComponent<Button>()->setName("\xB0");
-        sandButton->getOrAddComponent<Button>()->onClick = [&]() { mapEditor->setTerrain(1); };
-
         // grass Terrain 변경 버튼
-        grassButton = new GameObject(this, "grassButton", "button", nullptr, { 8, 3 }, { 13, 23 }, Position::zeros);
+        grassButton = new GameObject(this, "grassButton", "button", nullptr, { 8, 3 }, { 1, 23 }, Position::zeros);
         grassButton->getOrAddComponent<PanelRenderer>()->setTitle("Grass");
-        grassButton->getOrAddComponent<Button>()->setName("\xB1");
-        grassButton->getOrAddComponent<Button>()->onClick = [&]() { mapEditor->setTerrain(2); };
+        grassButton->getOrAddComponent<Button>()->setName("\xB0");
+        grassButton->getOrAddComponent<Button>()->onClick = [&]() { mapEditor->setTerrain(1); };
 
-        // ground Terrain 변경 버튼
-        groundButton = new GameObject(this, "groundButton", "button", nullptr, { 8, 3 }, { 25, 23 }, Position::zeros);
-        groundButton->getOrAddComponent<PanelRenderer>()->setTitle("Ground");
-        groundButton->getOrAddComponent<Button>()->setName("\xB2");
-        groundButton->getOrAddComponent<Button>()->onClick = [&]() { mapEditor->setTerrain(3); };
+        // sand Terrain 변경 버튼
+        sandButton = new GameObject(this, "sandButton", "button", nullptr, { 8, 3 }, { 13, 23 }, Position::zeros);
+        sandButton->getOrAddComponent<PanelRenderer>()->setTitle("Sand");
+        sandButton->getOrAddComponent<Button>()->setName("\xB1");
+        sandButton->getOrAddComponent<Button>()->onClick = [&]() { mapEditor->setTerrain(2); };
+
+        // rock Terrain 변경 버튼
+        rockButton = new GameObject(this, "rockButton", "button", nullptr, { 8, 3 }, { 25, 23 }, Position::zeros);
+        rockButton->getOrAddComponent<PanelRenderer>()->setTitle("Rock");
+        rockButton->getOrAddComponent<Button>()->setName("\xB2");
+        rockButton->getOrAddComponent<Button>()->onClick = [&]() { mapEditor->setTerrain(3); };
 
         // 맵 초기화 버튼
         clearButton = new GameObject(this, "clearButton", "button", nullptr, { 8, 3 }, { 39, 23 }, Position::zeros);

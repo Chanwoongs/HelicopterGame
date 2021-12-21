@@ -13,20 +13,20 @@ private:
     int mapSize;
     int terrainNum;
 
-    char sand;      // terrainNum = 1
-    char grass;     // terrainNum = 2
-    char ground;    // terrainNum = 3
+    char grass;      // terrainNum = 1
+    char sand;     // terrainNum = 2
+    char rock;    // terrainNum = 3
 public:
     MapEditorScript(GameObject* gameObject) : Behaviour(gameObject),
-        map(""), mapSize(0), terrainNum(0), sand(' '), grass(' '), ground(' ')
+        map(""), mapSize(0), terrainNum(0), grass(' '), sand(' '), rock(' ')
     {
         // ∏  ≈©±‚
         mapSize = renderer->getCapacity();
         
         // terrain √ ±‚»≠
-        sand = '\xB0';
-        grass = '\xB1';
-        ground = '\xB2';
+        grass = '\xB0';
+        sand = '\xB1';
+        rock = '\xB2';
 
         // ∏  √ ±‚»≠
         for (int i = 0; i < mapSize; i++)
@@ -51,15 +51,15 @@ public:
             }
             else if (map[i] == '1')
             {
-                renderer->setShape(sand, i);
+                renderer->setShape(grass, i);
             }
             else if (map[i] == '2')
             {
-                renderer->setShape(grass, i);
+                renderer->setShape(sand, i);
             }
             else if (map[i] == '3')
             {
-                renderer->setShape(ground, i);
+                renderer->setShape(rock, i);
             }
         }
     }
