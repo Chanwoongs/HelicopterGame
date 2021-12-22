@@ -40,7 +40,7 @@ private:
             images.push_back(image3);
             images.push_back(image4);
             images.push_back(image5);
-            
+             
             // 발사 후 이미지 수 저장
             numOfImages = images.size();
             isFired = false;
