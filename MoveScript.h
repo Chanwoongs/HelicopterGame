@@ -16,6 +16,7 @@ public:
     {
 
     }
+    ~MoveScript() {}
 
     void update() override 
     {

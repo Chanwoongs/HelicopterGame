@@ -1,6 +1,7 @@
 #pragma once
 
 #include <random>
+#include <ctime>
 
 #include "Position.h"
 #include "GameObject.h"
@@ -8,12 +9,15 @@
 #include "MoveScript.h"
 #include "HelicopterScript.h"
 #include "VerticalLineScript.h"
+#include "EnemyScript.h"
 
 using namespace std;
 
 class Scene : public GameObject
 {
-    bool    isCompleted;
+    bool isCompleted;
+    int enemySpawnTimer;
+    int enemyFireTimer;
 
     Input* input;
 
@@ -21,22 +25,22 @@ class Scene : public GameObject
     int nextPivotDiff;
     int nextSpaceDiff;
 
-    GameObject* helicopter;
     GameObject* boundary;
+    GameObject* helicopter;
+    GameObject* enemy;
+    GameObject* scoreBoard;
 
     vector<GameObject*> map;
     vector<GameObject*> bullets;
-
-    /*vector<unique_ptr<GameObject>> bullets;*/
 public:
-
     Scene()
         : GameObject{ nullptr, "root", "root", nullptr, {1, 1}, {0, 0}, Position::zeros }, isCompleted(false),
-        input(Input::GetInstance()), nextPivotDiff(0), nextSpaceDiff(0), helicopter(nullptr), boundary(nullptr)
+        enemySpawnTimer(0), enemyFireTimer(0), input(Input::GetInstance()), nextPivotDiff(0), nextSpaceDiff(0),
+        boundary(nullptr), helicopter(nullptr), enemy(nullptr)
     {
         // 맵 경계선
         boundary = new GameObject(this, "boundary", "panel", nullptr, { 70, 20 }, { 5,5 }, Position::zeros);
-        boundary->getOrAddComponent<PanelRenderer>();
+        boundary->addComponent<PanelRenderer>();
 
         // 첫 번째 수직 선
         GameObject* firstVerticalLine = new GameObject(boundary, "verticalLine", "line", nullptr, { 1, boundary->getRenderer()->getHeight() }, { 0, 0 }, Position::zeros);
@@ -58,12 +62,17 @@ public:
             // temp 에 현재 수직 선 저장 
             temp = verticalLine;
         }
-        
+
         helicopter = new GameObject(boundary, "helicopter", "player", nullptr, { 5, 4 }, { 6, 8 }, Position::zeros);
         helicopter->addComponent<MoveScript>();
         helicopter->addComponent<HelicopterScript>();
 
-       
+        enemy = new GameObject(boundary, "enemy", "enemy", nullptr, { 6, 4 }, { 0, 0 }, Position::zeros);
+        enemy->getOrAddComponent<EnemyScript>();
+        enemy->setHidden(true);
+
+        scoreBoard = new GameObject(this, "scoreBoard", "UI", "Score : ", { 20, 1 }, { 30, 27 }, Position::zeros);
+        scoreBoard->addComponent<PanelRenderer>();
     }
 
     void start() override { internalStart(); }
@@ -72,8 +81,19 @@ public:
 
     bool isSceneOver() const { return isCompleted; }
 
+    void firingHelicopter()
+    {
+        if (helicopter->getComponent<HelicopterScript>()->getIsFired())
+        {
+            GameObject* bullet = new GameObject(boundary, "bullet", "bullet", "-", { 1, 1 }, helicopter->getTransform()->getPos() + Position(5, 2), Position::zeros);
+            bullet->getOrAddComponent<BulletScript>()->setBulletDirection(1);
+            bullets.push_back(bullet);
+            helicopter->getComponent<HelicopterScript>()->setIsFired(false);
+        }
+    }
+
     void updateMap()
-    {     
+    {
         // 난수 생성 -1, 0, 1
         mt19937 gen(rd());
         uniform_int_distribution<int> dis(-1, 1);
@@ -97,8 +117,8 @@ public:
                 }
                 else
                 {
-                    map[i]->getComponent<VerticalLineScript>()->setSpace(map[i-1]->getComponent<VerticalLineScript>()->getSpace());
-                    map[i]->getComponent<VerticalLineScript>()->refresh(map[i-1]->getComponent<VerticalLineScript>()->getPivot() + nextPivotDiff);
+                    map[i]->getComponent<VerticalLineScript>()->setSpace(map[i - 1]->getComponent<VerticalLineScript>()->getSpace());
+                    map[i]->getComponent<VerticalLineScript>()->refresh(map[i - 1]->getComponent<VerticalLineScript>()->getPivot() + nextPivotDiff);
                 }
                 // pivot 값에 변화가 없다면 space 값에 nextSpaceDiff를 더해 space 크기 변경 (수직 선이 두칸 이상 차이나는 걸 방지하기 위해 pivot값에 변화가 없을 때만 실행)
                 if (nextPivotDiff == 0)
@@ -107,7 +127,7 @@ public:
                 }
             }
             // 경계선 범위 밖에 있는 수직선은 안보이게 처리
-            if (map[i]->getTransform()->getPos().x > 69) 
+            if (map[i]->getTransform()->getPos().x > boundary->getRenderer()->getWidth() - 1)
             {
                 map[i]->setHidden();
             }
@@ -116,14 +136,17 @@ public:
                 map[i]->setHidden(false);
             }
         }
-     }
+    }
 
     // 충돌 체크
     bool checkCollision()
     {
         // 헬리콥터에 채워져 있는 인덱스들
         auto helicopterFilledPoses = helicopter->getComponent<HelicopterScript>()->searchFilledPoses();
-        // 헬리콥터와 맵 충돌체크
+        // 적에 채워져 있는 인덱스들
+        auto enemyFilledPoses = enemy->getComponent<EnemyScript>()->searchFilledPoses();
+
+        // 헬리콥터 충돌체크
         for (int i = 0; i < helicopterFilledPoses.size(); i++)
         {
             for (int j = 0; j < map.size(); j++)
@@ -136,25 +159,50 @@ public:
                 }
             }
         }
-        // 인덱스들 초기화
-        helicopter->getComponent<HelicopterScript>()->clearFilledPoses();
 
-        // 총알과 맵 충돌체크
+        // 총알 충돌체크
         for (int i = 0; i < bullets.size(); i++)
         {
+            // 총알, 맵 충돌체크
             for (int j = 0; j < map.size(); j++)
             {
-                // 총알과 맵은 서로 반대로 움직이기 때문에 이중으로 충돌 처리
+                // 총알과 맵은 서로 반대로 움직이고 총알은 speed가 있기 때문에 벽을 뚫지 않도록 다중으로 충돌 처리
                 if (bullets[i]->getTransform()->getPos() == map[j]->getComponent<VerticalLineScript>()->getTopPos() ||
-                    bullets[i]->getTransform()->getPos() == map[j]->getComponent<VerticalLineScript>()->getBottomPos() || 
+                    bullets[i]->getTransform()->getPos() == map[j]->getComponent<VerticalLineScript>()->getBottomPos() ||
                     bullets[i]->getTransform()->getPos() - 1 == map[j]->getComponent<VerticalLineScript>()->getTopPos() ||
-                    bullets[i]->getTransform()->getPos() - 1 == map[j]->getComponent<VerticalLineScript>()->getBottomPos())
+                    bullets[i]->getTransform()->getPos() - 1 == map[j]->getComponent<VerticalLineScript>()->getBottomPos() ||
+                    bullets[i]->getTransform()->getPos() - 2 == map[j]->getComponent<VerticalLineScript>()->getTopPos() ||
+                    bullets[i]->getTransform()->getPos() - 2 == map[j]->getComponent<VerticalLineScript>()->getBottomPos())
                 {
                     // 총알 삭제
                     bullets[i]->getComponent<BulletScript>()->destroyBullet();
                 }
             }
+            // 총알, 헬리콥터 충돌체크
+            for (int h = 0; h < helicopterFilledPoses.size(); h++)
+            {
+                if (bullets[i]->getTransform()->getPos() == helicopterFilledPoses[h])
+                {
+                    exit(0);
+                }
+            }
+            // 총알, 적 충돌체크
+            for (int k = 0; k < enemyFilledPoses.size(); k++)
+            {
+                if (bullets[i]->getTransform()->getPos() == enemyFilledPoses[k])
+                {
+                    // 적 없애기
+                    enemy->setHidden();
+                    // 적 스폰 시간 초기화
+                    enemySpawnTimer = 0;
+                    // 총알 삭제
+                    bullets[i]->getComponent<BulletScript>()->destroyBullet();
+                }
+            }
         }
+        // 인덱스들 초기화
+        helicopter->getComponent<HelicopterScript>()->clearFilledPoses();
+        enemy->getComponent<EnemyScript>()->clearFilledPoses();
     }
 
     // Bullets Vector Container 관리
@@ -172,6 +220,68 @@ public:
                 bullets.erase(it);
             }
         }
+    }
+
+    // 적 헬기 
+    void updateEnemy()
+    {
+        // 출현 시간 카운트 
+        enemySpawnTimer++;
+        // 100프레임에 1번 씩 출현
+        if (enemySpawnTimer == 100)
+        {
+            enemy->setHidden(false);
+        }
+        // 미사용시에는 숨겨놓기
+        if (enemy->isHidden())
+        {
+            enemy->getTransform()->setPos(0, 0);
+        }
+        else
+        {
+            updateEnemyPos();
+        }
+        firingEnemy();
+    }
+
+    // 적 위치 업데이트
+    void updateEnemyPos()
+    {
+        for (int i = 0; i < map.size(); i++)
+        {
+            // pivot값에 따라 적이 위아래 움직임
+            if (map[i]->getTransform()->getPos().x == (boundary->getRenderer()->getWidth() - enemy->getRenderer()->getWidth()))
+            {
+                enemy->getTransform()->setPos(boundary->getRenderer()->getWidth() - enemy->getRenderer()->getWidth(), map[i]->getComponent<VerticalLineScript>()->getPivot() - 2);
+            }
+        }
+    }
+
+    // 적 총알 자동 발사
+    void firingEnemy()
+    {
+        if (enemy->isHidden()) return;
+        // 발사 시간 카운트
+        enemyFireTimer++;
+        // 20프레임에 한 번씩 발사
+        if (enemyFireTimer == 20)
+        {
+            // 적 총알 생성
+            GameObject* bullet = new GameObject(boundary, "bullet", "bullet", "\xE0", { 1, 1 }, enemy->getTransform()->getPos() + Position(-1, 1), Position::zeros);
+            bullet->getOrAddComponent<BulletScript>()->setBulletDirection(-1);
+            bullets.push_back(bullet);
+
+            // fire 트리거 활성화
+            enemy->getComponent<EnemyScript>()->setIsFired(true);
+
+            // 발사 시간 초기화
+            enemyFireTimer = 0;
+        }
+    }
+
+    void updateTime()
+    {
+
     }
 
 #if 0
@@ -192,4 +302,3 @@ public:
     }
 #endif
 };
-

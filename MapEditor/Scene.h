@@ -111,7 +111,6 @@ public:
         }
     }
 
-
 #if 0
     void update() override {
         if (confirm && confirm->isActive() == false) {

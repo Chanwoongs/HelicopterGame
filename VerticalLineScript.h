@@ -90,6 +90,16 @@ private:
             space--;
         }
     }
+    // 위에 있는 지형의 가장 아래 인덱스
+    void updateTopPos()
+    {
+        topPos = Position(transform->getPos().x, pivot - space - 1);
+    }
+    // 아래 있는 지형의 가장 위 인덱스
+    void updateBottomPos()
+    {
+        bottomPos = Position(transform->getPos().x, pivot + space + 1);
+    }
 
 public:
     VerticalLineScript(GameObject* gameObject) : Behaviour(gameObject),
@@ -102,6 +112,7 @@ public:
         sand = '\xB1';
         rock = '\xB2';
     }
+    ~VerticalLineScript() {}
 
     void update() override
     {
@@ -131,19 +142,9 @@ public:
         return space;
     }
 
-    // 위에 있는 지형의 가장 아래 인덱스
-    void updateTopPos()
-    {
-        topPos = Position(transform->getPos().x, pivot - space - 1);
-    }
     Position getTopPos()
     {
         return topPos;
-    }
-    // 아래 있는 지형의 가장 위 인덱스
-    void updateBottomPos()
-    {
-        bottomPos = Position(transform->getPos().x, pivot + space + 1);
     }
     Position getBottomPos()
     {

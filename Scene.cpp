@@ -7,24 +7,12 @@ void Scene::update() {
         return;
     }
 
-    if (helicopter->getComponent<HelicopterScript>()->getIsFired())
-    {
-        GameObject* bullet = new GameObject(boundary, "bullet", "bullet", "-", { 1, 1 }, helicopter->getTransform()->getPos() + Position(5, 2), Position::zeros);
-        bullet->addComponent<BulletScript>();
-        bullets.push_back(bullet);
-        helicopter->getComponent<HelicopterScript>()->setIsFired(false);
+    firingHelicopter();    
 
-        /*unique_ptr<GameObject> bullet{ new GameObject(this, "bullet", "bullet", "-", { 1, 1 }, helicopter->getTransform()->getPos() + Position(5, 2), Position::zeros) };
-        bullet->addComponent<BulletScript>();
-        bullets.push_back(bullet);
-        helicopter->getComponent<HelicopterScript>()->setIsFired(false);*/
-    }
-    
     updateMap();
-
-    checkCollision();
-
+    updateEnemy();
     updateBullets();
+    checkCollision();
 
     internalRemove();
     internalRender(Position::zeros, false);
