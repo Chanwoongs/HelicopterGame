@@ -1,7 +1,6 @@
 #pragma once
 
 #include <random>
-#include<chrono>
 
 #include "Position.h"
 #include "GameObject.h"
@@ -32,6 +31,8 @@ class Scene : public GameObject
     GameObject* enemy;
     GameObject* enemyHPBar;
     GameObject* timeBoard;
+    GameObject* gameOverPanel;
+    GameObject* gameOverTxt;
 
     vector<GameObject*> map;
     vector<GameObject*> bullets;
@@ -83,6 +84,12 @@ public:
         timeBoard = new GameObject(this, "scoreBoard", "UI", "Score : ", { 20, 1 }, { 30, 27 }, Position::zeros);
         timeBoard->addComponent<PanelRenderer>();
         timeBoard->addComponent<TimeScript>();
+
+        gameOverPanel = new GameObject(this, "gameOverPanel", "UI", nullptr, { 9, 1 }, { 35, 15 }, Position::zeros);
+        gameOverPanel->addComponent<PanelRenderer>();
+        gameOverTxt = new GameObject(gameOverPanel, "gameOverTxt", "UI", "GAME OVER", { 9, 1 }, { 0, 0 }, Position::zeros);
+        gameOverPanel->setActive(false);
+
     }
 
     void start() override { internalStart(); }
@@ -165,7 +172,8 @@ public:
                 if (helicopterFilledPoses[i] == map[j]->getComponent<VerticalLineScript>()->getTopPos() ||
                     helicopterFilledPoses[i] == map[j]->getComponent<VerticalLineScript>()->getBottomPos())
                 {
-                    exit(0);
+                    gameOverPanel->setActive(true);
+                    isCompleted = true;
                 }
             }
         }
@@ -189,13 +197,14 @@ public:
                 }
             }
             // ÃÑ¾Ë, Çï¸®ÄßÅÍ Ãæµ¹Ã¼Å©
-   /*         for (int h = 0; h < helicopterFilledPoses.size(); h++)
+            for (int h = 0; h < helicopterFilledPoses.size(); h++)
             {
                 if (bullets[i]->getTransform()->getPos() == helicopterFilledPoses[h])
                 {
-                    exit(0);
+                    gameOverPanel->setActive(true);
+                    isCompleted = true;
                 }
-            }*/
+            }
             // ÃÑ¾Ë, Àû Ãæµ¹Ã¼Å©
             for (int k = 0; k < enemyFilledPoses.size(); k++)
             {
