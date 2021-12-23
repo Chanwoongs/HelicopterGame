@@ -156,6 +156,7 @@
     <ClCompile Include="Borland.cpp" />
     <ClCompile Include="BulletScript.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="HPScript.cpp" />
     <ClCompile Include="EnemyScript.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HelicopterScript.cpp" />
@@ -165,7 +166,7 @@
     <ClCompile Include="PanelRenderer.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="ScoreScript.cpp" />
+    <ClCompile Include="TimeScript.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Borland.h" />
     <ClInclude Include="BulletScript.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="HPScript.h" />
     <ClInclude Include="EnemyScript.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HelicopterScript.h" />
@@ -183,7 +185,7 @@
     <ClInclude Include="MoveScript.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="ScoreScript.h" />
+    <ClInclude Include="TimeScript.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Transform.h" />

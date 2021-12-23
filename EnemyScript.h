@@ -52,6 +52,10 @@ private:
 public:
     EnemyScript(GameObject* gameObject) : Behaviour(gameObject),
         image1(nullptr), image2(nullptr), image3(nullptr), image4(nullptr), image5(nullptr), imageIndex(0), numOfImages(0), isFired(false)
+    {}
+    ~EnemyScript() {}
+
+    void start() override
     {
         image1 = "  \xDB\xDB\xDB \xDB\xDB\xDB\xDB\xDB   \xDB\xDB\xDB \xB2\xB2\xB2\xB2\xB2\xB2";
         image2 = "  \xDB\xDB\xDB  \xDB\xDB\xDB\xDB   \xDB\xDB\xDB \xB2\xB2\xB2\xB2\xB2\xB2";
@@ -63,7 +67,6 @@ public:
 
         renderer->setShape(images[0]);
     }
-    ~EnemyScript() {}
 
     void update() override
     {

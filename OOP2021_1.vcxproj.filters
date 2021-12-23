@@ -66,7 +66,10 @@
     <ClCompile Include="EnemyScript.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreScript.cpp">
+    <ClCompile Include="TimeScript.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="HPScript.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,7 +119,10 @@
     <ClInclude Include="EnemyScript.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreScript.h">
+    <ClInclude Include="TimeScript.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="HPScript.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

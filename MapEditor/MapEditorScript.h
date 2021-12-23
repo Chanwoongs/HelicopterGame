@@ -13,8 +13,8 @@ private:
     int mapSize;
     int terrainNum;
 
-    char grass;      // terrainNum = 1
-    char sand;     // terrainNum = 2
+    char grass;   // terrainNum = 1
+    char sand;    // terrainNum = 2
     char rock;    // terrainNum = 3
 public:
     MapEditorScript(GameObject* gameObject) : Behaviour(gameObject),

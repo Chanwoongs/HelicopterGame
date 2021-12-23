@@ -1,7 +1,7 @@
 #pragma once
 
 #include <random>
-#include <ctime>
+#include<chrono>
 
 #include "Position.h"
 #include "GameObject.h"
@@ -10,6 +10,8 @@
 #include "HelicopterScript.h"
 #include "VerticalLineScript.h"
 #include "EnemyScript.h"
+#include "TimeScript.h"
+#include "HPScript.h"
 
 using namespace std;
 
@@ -28,15 +30,19 @@ class Scene : public GameObject
     GameObject* boundary;
     GameObject* helicopter;
     GameObject* enemy;
-    GameObject* scoreBoard;
+    GameObject* enemyHPBar;
+    GameObject* timeBoard;
 
     vector<GameObject*> map;
     vector<GameObject*> bullets;
+
+    float time;
+
 public:
     Scene()
         : GameObject{ nullptr, "root", "root", nullptr, {1, 1}, {0, 0}, Position::zeros }, isCompleted(false),
         enemySpawnTimer(0), enemyFireTimer(0), input(Input::GetInstance()), nextPivotDiff(0), nextSpaceDiff(0),
-        boundary(nullptr), helicopter(nullptr), enemy(nullptr)
+        boundary(nullptr), helicopter(nullptr), enemy(nullptr), timeBoard(nullptr), time(0.f)
     {
         // 맵 경계선
         boundary = new GameObject(this, "boundary", "panel", nullptr, { 70, 20 }, { 5,5 }, Position::zeros);
@@ -71,8 +77,12 @@ public:
         enemy->getOrAddComponent<EnemyScript>();
         enemy->setHidden(true);
 
-        scoreBoard = new GameObject(this, "scoreBoard", "UI", "Score : ", { 20, 1 }, { 30, 27 }, Position::zeros);
-        scoreBoard->addComponent<PanelRenderer>();
+        enemyHPBar = new GameObject(enemy, "enemyHP", "UI", nullptr, { 6, 1 }, { 0, -1 }, Position::zeros);
+        enemyHPBar->addComponent<HPScript>();
+
+        timeBoard = new GameObject(this, "scoreBoard", "UI", "Score : ", { 20, 1 }, { 30, 27 }, Position::zeros);
+        timeBoard->addComponent<PanelRenderer>();
+        timeBoard->addComponent<TimeScript>();
     }
 
     void start() override { internalStart(); }
@@ -139,14 +149,14 @@ public:
     }
 
     // 충돌 체크
-    bool checkCollision()
+    void checkCollision()
     {
         // 헬리콥터에 채워져 있는 인덱스들
         auto helicopterFilledPoses = helicopter->getComponent<HelicopterScript>()->searchFilledPoses();
         // 적에 채워져 있는 인덱스들
         auto enemyFilledPoses = enemy->getComponent<EnemyScript>()->searchFilledPoses();
 
-        // 헬리콥터 충돌체크
+        // 헬리콥터 맵 충돌체크
         for (int i = 0; i < helicopterFilledPoses.size(); i++)
         {
             for (int j = 0; j < map.size(); j++)
@@ -179,22 +189,31 @@ public:
                 }
             }
             // 총알, 헬리콥터 충돌체크
-            for (int h = 0; h < helicopterFilledPoses.size(); h++)
+   /*         for (int h = 0; h < helicopterFilledPoses.size(); h++)
             {
                 if (bullets[i]->getTransform()->getPos() == helicopterFilledPoses[h])
                 {
                     exit(0);
                 }
-            }
+            }*/
             // 총알, 적 충돌체크
             for (int k = 0; k < enemyFilledPoses.size(); k++)
             {
                 if (bullets[i]->getTransform()->getPos() == enemyFilledPoses[k])
                 {
-                    // 적 없애기
-                    enemy->setHidden();
-                    // 적 스폰 시간 초기화
-                    enemySpawnTimer = 0;
+                    // HP 감소
+                    enemyHPBar->getComponent<HPScript>()->hit();
+                    
+                    // HP가 0이 되면
+                    if (enemyHPBar->getComponent<HPScript>()->getHP() == 0)
+                    {
+                        // HP 리셋
+                        enemyHPBar->getComponent<HPScript>()->resetHP();
+                        // 적 없애기
+                        enemy->setHidden();
+                        // 적 스폰 시간 초기화
+                        enemySpawnTimer = 0;
+                    }
                     // 총알 삭제
                     bullets[i]->getComponent<BulletScript>()->destroyBullet();
                 }
@@ -227,8 +246,8 @@ public:
     {
         // 출현 시간 카운트 
         enemySpawnTimer++;
-        // 100프레임에 1번 씩 출현
-        if (enemySpawnTimer == 100)
+        // 20프레임에 1번 씩 출현
+        if (enemySpawnTimer == 20)
         {
             enemy->setHidden(false);
         }
@@ -279,9 +298,11 @@ public:
         }
     }
 
+    // 시간 측정
     void updateTime()
     {
-
+        time++;
+        timeBoard->getComponent<TimeScript>()->setTime(int(time) / 10);
     }
 
 #if 0

@@ -7,8 +7,8 @@ void Scene::update() {
         return;
     }
 
-    firingHelicopter();    
-
+    updateTime();
+    firingHelicopter();   
     updateMap();
     updateEnemy();
     updateBullets();

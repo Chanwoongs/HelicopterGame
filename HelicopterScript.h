@@ -38,6 +38,10 @@ private:
 public:
     HelicopterScript(GameObject* gameObject) : Behaviour(gameObject),
         image1(nullptr), image2(nullptr), image3(nullptr), image4(nullptr), imageIndex(0), isFired(false)
+    { }
+    ~HelicopterScript() {}
+
+    void start() override
     {
         image1 = "\xDB\xDB\xDB\xDB\xDB  \xDB  \xDB\xDB\xDB\xDB\xDB  \xDB\xDB\xDB";
         image2 = " \xDB\xDB\xDB   \xDB  \xDB\xDB\xDB\xDB\xDB  \xDB\xDB\xDB";
@@ -49,7 +53,6 @@ public:
         images.push_back(image3);
         images.push_back(image4);
     }
-    ~HelicopterScript() {}
 
     void update() override 
     {

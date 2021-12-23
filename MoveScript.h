@@ -13,9 +13,7 @@ private:
 public:
     MoveScript(GameObject* gameObject) : Behaviour(gameObject),
         boundary(gameObject->getParent())
-    {
-
-    }
+    { }
     ~MoveScript() {}
 
     void update() override 

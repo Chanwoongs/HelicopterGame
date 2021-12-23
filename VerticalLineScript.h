@@ -104,15 +104,18 @@ private:
 public:
     VerticalLineScript(GameObject* gameObject) : Behaviour(gameObject),
         pivot(0), space(4), nextDifference(0), lineSize(0), shape(nullptr), grass(' '), sand(' '), rock(' '), topPos(0,0), bottomPos(0,0)
+    { }
+    ~VerticalLineScript() {}
+
+    void start() override
     {
         lineSize = renderer->getCapacity();
         shape = new char[lineSize];
-        
+
         grass = '\xB0';
         sand = '\xB1';
         rock = '\xB2';
     }
-    ~VerticalLineScript() {}
 
     void update() override
     {
