@@ -1,0 +1,2 @@
+C:\Users\방찬웅\Desktop\Project\OOP\HelicopterGame\HelicopterGame\x64\Debug\HelicopterGame.exe
+C:\Users\Chanwoongs\Desktop\Project\OOP\HelicopterGame\HelicopterGame\x64\Debug\HelicopterGame.exe
