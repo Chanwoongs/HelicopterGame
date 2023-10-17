@@ -11,6 +11,9 @@
 > #### 벽에 부딪히지 않고, 지속적으로 나타나 총을 쏘는 적 탱크를 피해 오랫동안 살아 남기
 > #### 컴포넌트 기반 개발 방법으로 설계된 프레임워크로 제작
 
+### 개발 기간
+> #### 2021.11 ~ 2021.12
+
 ### 기술
 > #### [무한 지형 생성](https://github.com/Chanwoongs/HelicopterGame/blob/main/HelicopterGame/VerticalLineScript.h)
 > 세로 선 여러개를 Vector에 담는 방식
