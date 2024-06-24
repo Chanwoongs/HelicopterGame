@@ -20,7 +20,7 @@ public:
         const Position& rotation = Position::zeros);
 
     Position getPosition() const { return localPosition; }
-
+     
     Position local2World(const Position& parentWorldPos, const Position& pos) const { return parentWorldPos + pos; }
     Position local2World(const Position& parentWorldPos) const { return parentWorldPos + this->localPosition; }
 

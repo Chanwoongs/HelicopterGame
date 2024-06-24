@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Behaviour" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAABAAAAAAAAAAoAA=</HashCode>
+      <FileName>Behaviour.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Borland" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Borland.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletScript" Collapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAIADAAAAABAAAAAABAAACAAAAAAAEAgA=</HashCode>
+      <FileName>BulletScript.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Component" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgACAAAAAACEAgAACAAEAAAAAEABAAAgBAgAAEAAA=</HashCode>
+      <FileName>Component.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HPScript" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAgAAAAAAgAgAAAAAAMAABAAEAEAAA=</HashCode>
+      <FileName>HPScript.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyScript" Collapsed="true">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQEEAgAQAAAAgAEAAAAAAMAAAAAAAAABAAAAEgCA=</HashCode>
+      <FileName>EnemyScript.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hBAQBCAAAAAAEERkCBCEAFAABQAMCABAAAR0IANEoAI=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HelicopterScript" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMAAgAAAAACgAAAAAAAAMAAASAAABABAAAAEgCA=</HashCode>
+      <FileName>HelicopterScript.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Input" Collapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAACIBMAAIIAgAFAAAAIAAFAUAgQEAYAAIKAAIABA=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveScript" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAgAAAEAAA=</HashCode>
+      <FileName>MoveScript.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Renderer" Collapsed="true">
+    <Position X="19.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAAAABCAIAAAAIAIAAAQAAAQEQAAAQACAAAQQREA=</HashCode>
+      <FileName>Renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeScript" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAABAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAUAAA=</HashCode>
+      <FileName>TimeScript.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Screen" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QFAABAAAAAAIAAQARIIAAAgCBAACQAAEQAAAAAAQAAA=</HashCode>
+      <FileName>Screen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAFEBIAAoAACAAghAAACgAAMIICARAAgAEAAAIEABI=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Transform" Collapsed="true">
+    <Position X="17" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAYACEAAAAAAAAAACAQAQAAAAIAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Transform.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VerticalLineScript" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIEAAJAlgQACkAAAMAEBABAAAQAIgAAAAACAERgA=</HashCode>
+      <FileName>VerticalLineScript.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Position" Collapsed="true">
+    <Position X="4.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAgAIABAQAAAAAIAAAAAABgAgAAgAA=</HashCode>
+      <FileName>Position.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="Dimension" Collapsed="true">
+    <Position X="4.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Position.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="KeyCode" Collapsed="true">
+    <Position X="21.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAAAAAAAAAAAAAAAAAAAEAAQACACAvv//YQM=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
